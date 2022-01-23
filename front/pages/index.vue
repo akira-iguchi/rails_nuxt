@@ -6,7 +6,7 @@
 </template>
 
 <script>
-  // なくて良い
+  // なくて良い、「@」はトップディレクトリ
   import AddTodo from "@/components/AddTodo";
   import TodoList from "@/components/TodoList";
 
@@ -18,7 +18,12 @@
     },
     data() {
       return {
-        todos: [],
+        todos: [
+          {
+            title: "test3",
+            username: "太郎3"
+          },
+        ],
       };
     },
     methods: {

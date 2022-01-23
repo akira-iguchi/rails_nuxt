@@ -11,8 +11,10 @@
 
 <script>
 export default {
+  props: ["todos"],
   data() {
     return {
+      // このtodosはpropsが優先なので表示されない
       todos: [
         {
           title: "test",
