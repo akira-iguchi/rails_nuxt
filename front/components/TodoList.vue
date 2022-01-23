@@ -15,16 +15,16 @@ export default {
   data() {
     return {
       // このtodosはpropsが優先なので表示されない
-      todos: [
-        {
-          title: "test",
-          username: "太郎"
-        },
-        {
-          title: "test2",
-          username: "太郎2"
-        }
-      ],
+      // todos: [
+      //   {
+      //     title: "test",
+      //     username: "太郎"
+      //   },
+      //   {
+      //     title: "test2",
+      //     username: "太郎2"
+      //   }
+      // ],
       search: "",
       headers: [
         {
