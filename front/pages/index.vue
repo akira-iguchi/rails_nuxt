@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div v-if="user">
+    <p>名前：{{user.name}}</p>
     <AddTodo @submit="addTodo" />
     <TodoList :todos="todos" />
   </div>
@@ -26,6 +27,12 @@
           },
         ],
       };
+    },
+    computed: {
+      user() {
+        // 「$」は慣習的なもので、付けないものと差はない
+        return this.$store.state.auth.currentUser;
+      }
     },
     methods: {
       async addTodo(title) {
