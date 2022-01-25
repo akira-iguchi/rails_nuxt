@@ -1,6 +1,7 @@
 <template>
   <v-app dark>
     <div>
+      <Success />
       <Loading />
     </div>
 
