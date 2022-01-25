@@ -45,11 +45,11 @@
 
 <script>
   export default {
-    props: ["todo", "user"],
+    props: ["todo", "user", "isOpen"],
     data () {
       return {
-        dialog: false,
-        title: ""
+        title: "",
+        dialog: false
       }
     },
     mounted () {
@@ -59,14 +59,14 @@
       handleSubmit() {
         const todo = {
           title: this.title,
-          todo_id: this.todo.id,
+          id: this.todo.id,
           user_id: this.user.id,
         };
 
         this.$emit("submit", todo);
 
         this.dialog = false
-      }
+      },
     }
   }
 </script>

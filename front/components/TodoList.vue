@@ -9,7 +9,7 @@
       <template v-slot:[`item.action`]="{ item }">
         <div class="action">
           <v-icon small @click="deleteItem(item)">delete</v-icon>
-          <Dialog :user="user" :todo="item" @submit="editTodo" />
+          <Dialog :isOpen='isOpen' :user="user" :todo="item" @submit="editTodo" @closeDialog="closeDialog" />
         </div>
       </template>
     </v-data-table>
@@ -33,6 +33,7 @@ export default {
       //     username: "太郎2"
       //   }
       // ],
+      isOpen: false,  // dialog
       search: "",
       headers: [
         {
@@ -57,18 +58,28 @@ export default {
       }
     },
     methods: {
+      closeDialog() {
+        this.isOpen = false
+      },
       async editTodo(todo) {
-        const { data } = await axios.post(`/vi/todos/${ todo.id }`, { todo }, {
-            // PUTに変換
-            headers: {
-                'X-HTTP-Method-Override': 'PUT'
-            }
-        })
+        const { data } = await axios.put(`/v1/todos/${ todo.id }`, { todo })
 
-        this.$store.dispatch("auth/setUser", {
-          ...this.user,
-          todos: [...this.user.todos, data]
-        });
+        if (typeof(data) === 'object') {
+          const todos = this.user.todos.map((todo) => {
+            if (data.id === todo.id) {
+              todo = data
+            }
+            return todo
+          });
+
+          this.$store.dispatch("auth/setUser", {
+            ...this.user,
+            todos: [...todos]
+          });
+
+          this.isOpen = false
+        }
+
       },
       async deleteItem(item) {
         const res = confirm("本当に削除しますか？");

@@ -15,12 +15,12 @@ class V1::TodosController < ApplicationController
   end
 
   def update
-    user = User.find(params[:user_id])
-    todo = Todo.find(params[:todo_id])
-    if todo.update
+    user = User.find_by(id: params[:user_id])
+    todo = Todo.find(params[:id])
+    if todo.update(todo_params)
       render json: todo
     else
-      render json: todo.errors
+      render json: [todo.errors, 'error']
     end
   end
 
