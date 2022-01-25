@@ -29,6 +29,22 @@
         this.$router.push("/login");
       },
     },
+    // fetchはVuexのstore（stateの状態を保持するもの）の情報が完成しているタイミング
+    fetch({
+      store,
+      redirect
+    }) {
+      // store.watch()は第一引数が返す値を監視し、値が変わったときに第二引数である関数を、コールバックとして呼び出します。
+      store.watch(
+        // 現在のログインユーザーの情報が変わったタイミングで、コールバックが呼び出される
+        state => state.auth.currentUser,
+        (newUser, oldUser) => {
+          if (!newUser) {
+            return redirect("/login");
+          }
+        }
+      );
+    },
   };
 
 </script>

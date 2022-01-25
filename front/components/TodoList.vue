@@ -6,7 +6,7 @@
       <v-text-field v-model="search" label="Search" single-line hide-details></v-text-field>
     </v-card-title>
     <v-data-table :headers="headers" :items="todos" :search="search">
-      <template v-slot:item.action="{ item }">
+      <template v-slot:[`item.action`]="{ item }">
         <v-icon small @click="deleteItem(item)">delete</v-icon>
       </template>
     </v-data-table>
