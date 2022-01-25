@@ -14,6 +14,16 @@ class V1::TodosController < ApplicationController
     end
   end
 
+  def update
+    user = User.find(params[:user_id])
+    todo = Todo.find(params[:todo_id])
+    if todo.update
+      render json: todo
+    else
+      render json: todo.errors
+    end
+  end
+
   def destroy
     todo = Todo.find(params[:id])
     if todo.destroy

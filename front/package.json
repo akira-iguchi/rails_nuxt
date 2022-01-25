@@ -22,7 +22,10 @@
     "webpack": "^4.46.0"
   },
   "devDependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.4",
+    "@mdi/font": "^6.5.95",
     "@nuxtjs/dotenv": "^1.4.1",
-    "@nuxtjs/vuetify": "^1.12.3"
+    "@nuxtjs/vuetify": "^1.12.3",
+    "font-awesome": "^4.7.0"
   }
 }

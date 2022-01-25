@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card v-if="todos">
     <v-card-title>
       Todo List
       <v-spacer></v-spacer>
@@ -7,7 +7,10 @@
     </v-card-title>
     <v-data-table :headers="headers" :items="todos" :search="search">
       <template v-slot:[`item.action`]="{ item }">
-        <v-icon small @click="deleteItem(item)">delete</v-icon>
+        <div class="action">
+          <v-icon small @click="deleteItem(item)">delete</v-icon>
+          <Dialog :user="user" :todo="item" @submit="editTodo" />
+        </div>
       </template>
     </v-data-table>
   </v-card>
@@ -54,6 +57,19 @@ export default {
       }
     },
     methods: {
+      async editTodo(todo) {
+        const { data } = await axios.post(`/vi/todos/${ todo.id }`, { todo }, {
+            // PUTに変換
+            headers: {
+                'X-HTTP-Method-Override': 'PUT'
+            }
+        })
+
+        this.$store.dispatch("auth/setUser", {
+          ...this.user,
+          todos: [...this.user.todos, data]
+        });
+      },
       async deleteItem(item) {
         const res = confirm("本当に削除しますか？");
         if (res) {
@@ -75,4 +91,7 @@ export default {
 </script>
 
 <style>
+.action {
+  display: flex;
+}
 </style>

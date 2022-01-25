@@ -2,7 +2,7 @@
   <div v-if="user">
     <p>名前：{{user.name}}</p>
     <AddTodo @submit="addTodo" />
-    <TodoList :todos="user.todos" />
+    <TodoList :user="user" :todos="user.todos" />
   </div>
 </template>
 
