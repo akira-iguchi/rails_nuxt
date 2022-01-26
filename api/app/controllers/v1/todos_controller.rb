@@ -20,7 +20,7 @@ class V1::TodosController < ApplicationController
     if todo.update(todo_params)
       render json: todo
     else
-      render json: [todo.errors, 'error']
+      render json: 'error'
     end
   end
 

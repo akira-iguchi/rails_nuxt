@@ -49,11 +49,16 @@
     data () {
       return {
         title: "",
-        dialog: false
+        dialog: false,
       }
     },
     mounted () {
       this.title = this.todo.title
+    },
+    watch: {
+      isOpen () {
+        this.dialog = false
+      }
     },
     methods: {
       handleSubmit() {
@@ -64,8 +69,7 @@
         };
 
         this.$emit("submit", todo);
-
-        this.dialog = false
+        // これ以降の処理でも、「submit」より早く処理してしまう
       },
     }
   }

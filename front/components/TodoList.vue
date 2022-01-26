@@ -9,7 +9,7 @@
       <template v-slot:[`item.action`]="{ item }">
         <div class="action">
           <v-icon small @click="deleteItem(item)">delete</v-icon>
-          <Dialog :isOpen='isOpen' :user="user" :todo="item" @submit="editTodo" @closeDialog="closeDialog" />
+          <Dialog :isOpen="isOpen" :user="user" :todo="item" @submit="editTodo" />
         </div>
       </template>
     </v-data-table>
@@ -58,9 +58,6 @@ export default {
       }
     },
     methods: {
-      closeDialog() {
-        this.isOpen = false
-      },
       async editTodo(todo) {
         const { data } = await axios.put(`/v1/todos/${ todo.id }`, { todo })
 
@@ -76,10 +73,8 @@ export default {
             ...this.user,
             todos: [...todos]
           });
-
-          this.isOpen = false
+          this.isOpen = !this.isOpen
         }
-
       },
       async deleteItem(item) {
         const res = confirm("本当に削除しますか？");
